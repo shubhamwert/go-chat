@@ -33,13 +33,16 @@ function initializeConnection() {
     };
     socket.onmessage = (event) => {
         console.log("Message Recieved")
-        msg = JSON.parse(event.data);
-        document.getElementById("messagesArea").innerHTML +=
-            "<div class='message'>" +
-            "<div class='from'>" + msg.From + "</div>" +
-            "<div class='text'>" + msg.message + "</div>" +
+        msgs = JSON.parse(event.data);
+        msgs.forEach(msg => {
+            
+            document.getElementById("messagesArea").innerHTML +=
+                "<div class='message'>" +
+                "<div class='from'>" + msg.From + "</div>" +
+                "<div class='text'>" + msg.message + "</div>" +
 
-            "</div>"
+                "</div>"
+            });
 
     }
     return socket
@@ -60,5 +63,5 @@ function sendMessage() {
 }
 function resetChatWindow() {
     document.getElementById("messagesArea").innerHTML = ""
-    
+
     }

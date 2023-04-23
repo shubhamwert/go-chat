@@ -26,7 +26,7 @@ func (R *Room) GetMessages() []Message {
 func (R *Room) AddMessage(msg string, usr string) []Message {
 	msgF := Message{Msg: msg, Id: len(R.Messages), From: usr}
 	R.Messages = append(R.Messages, msgF)
-	go R.ReceiveMessage(msgF)
+	go R.ReceiveMessage([]Message{msgF})
 
 	return R.Messages
 
@@ -49,12 +49,15 @@ func (R *Room) AddConnection(w http.ResponseWriter, r *http.Request) error {
 
 		return err
 	}
+	R.LoadMessages(u.Username)
+
 	R.AddMessage(fmt.Sprintf("New user connected %s", u.Username), u.Username)
+
 	go R.ReadMessage(ws, u)
 	return nil
 }
 
-func (R *Room) ReceiveMessage(msg Message) {
+func (R *Room) ReceiveMessage(msg []Message) {
 	closedConnection := []int{}
 	// R.Messages = append(R.Messages, msg)
 	fmt.Println(len(R.conn))
@@ -86,4 +89,8 @@ func (R *Room) ReadMessage(ws *websocket.Conn, u User) {
 		}
 		R.AddMessage(message.Msg, u.Username)
 	}
+}
+func (R *Room) LoadMessages(u string) error {
+	R.ReceiveMessage(R.Messages)
+	return nil
 }

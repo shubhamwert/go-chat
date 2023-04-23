@@ -17,6 +17,8 @@ func main() {
 	Rooms = make(map[int]*chatApp.Room)
 	Rooms[0] = &chatApp.Room{RoomId: 0, Messages: []chatApp.Message{}, RoomName: "Genysis"}
 
+	Rooms[1] = &chatApp.Room{RoomId: 0, Messages: []chatApp.Message{}, RoomName: "Genysis2"}
+	Rooms[2] = &chatApp.Room{RoomId: 0, Messages: []chatApp.Message{}, RoomName: "Genysis3"}
 	fmt.Println("Starting")
 
 	router := gin.Default()
