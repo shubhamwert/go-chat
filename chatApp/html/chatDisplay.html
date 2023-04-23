@@ -5,13 +5,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/styles.css">
-    <script src="scripts/chat.js"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../scripts/chat.js"></script>
     <title>Chat Room</title>
 </head>
 
 <body>
-
+    <div class="user">
+        username
+        <input id="username" type="text" ></input>
+        password
+        <input id="password" type="password"></input>
+        <button onclick="initializeConnection()">connect</button>
+    </div>
 
     <div class="chatWindow">
         <div id="messagesArea">
@@ -20,7 +26,7 @@
         </div>
         <div class="sendMessage">
             <input type="text" id="messageSend">
-            <button class="sendMessageButton" onclick="sendMessage('hello')">Send</button>
+            <button class="sendMessageButton" onclick="sendMessage()">Send</button>
 
         </div>
     </div>

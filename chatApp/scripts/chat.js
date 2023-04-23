@@ -1,32 +1,49 @@
-console.log("Hello World    ")
-let socket = new WebSocket("ws://127.0.0.1:8080/room/0/msg");
-console.log("Attempting Connection...");
-
-socket.onopen = () => {
-    console.log("Successfully Connected");
-
+console.log("Hello World")
+var universal =
+{
+	socketName : "0"
 };
 
-socket.onclose = event => {
-    console.log("Socket Closed Connection: ", event);
-    socket.send("Client Closed!")
-};
+let socket=null
+function initializeConnection() {
+    if (socket != null) {
+        socket.close()
 
-socket.onerror = error => {
-    console.log("Socket Error: ", error);
-};
-socket.onmessage = (event) => {
-    console.log("Message Recieved")
-    msg = JSON.parse(event.data);
-    document.getElementById("messagesArea").innerHTML +=
-        "<div class='message'>" +
-        "<div class='from'>" + msg.From + "</div>" +
-        "<div class='text'>" + msg.message + "</div>" +
+    }
+    let data= {"username":document.getElementById("username").value,
+    "password":document.getElementById("password").value}
 
-        "</div>"
+    socket = new WebSocket("ws://127.0.0.1:8080/room/"+universal.socketName+"/connect");
+    console.log("Attempting Connection...");
 
+    socket.onopen = () => {
+        console.log("Successfully Connected");
+        console.log(JSON.stringify( data))
+        socket.send(JSON.stringify( data))
+
+    };
+
+    socket.onclose = event => {
+        console.log("Socket Closed Connection: ", event);
+        socket.send("Client Closed!")
+    };
+
+    socket.onerror = error => {
+        console.log("Socket Error: ", error);
+    };
+    socket.onmessage = (event) => {
+        console.log("Message Recieved")
+        msg = JSON.parse(event.data);
+        document.getElementById("messagesArea").innerHTML +=
+            "<div class='message'>" +
+            "<div class='from'>" + msg.From + "</div>" +
+            "<div class='text'>" + msg.message + "</div>" +
+
+            "</div>"
+
+    }
+    return socket
 }
-
 function sendMessage() {
     let msg = document.getElementById("messageSend").value;
     console.log(msg)
@@ -38,5 +55,10 @@ function sendMessage() {
 
         }
         socket.send(JSON.stringify(msg))
+        document.getElementById("messageSend").value=""
     }
 }
+function resetChatWindow() {
+    document.getElementById("messagesArea").innerHTML = ""
+    
+    }

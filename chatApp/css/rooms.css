@@ -1,0 +1,64 @@
+*{
+    margin: 0px;
+}
+
+body{
+    background-color: rgba(255, 255, 255, 0.809);
+    height: 100vh;
+    
+
+}
+.Rooms{
+    height: 100%;
+}
+#rooms{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.room{
+    background-color: rgb(30, 255, 214);
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    border-bottom: 0.05rem solid rgba(0, 0, 0, 0.262);
+    justify-self: center;
+    overflow: hidden;
+    transition: all ease 0.05s;
+    opacity: 0.7;
+    width: 40%;
+
+}
+.room:hover{
+    transform: scale(1.05);
+    box-shadow: 0.5rem 0.5rem 5rem 0.5rem rgb(255, 255, 255);
+    opacity: 1;
+
+}
+
+
+.room a{
+    display: block;
+    height: 100%;
+    width: 100%;
+    text-decoration: none;
+}
+.chatApp{
+    display: flex;
+    border: 0.05rem rgba(0, 0, 0, 0.219) solid;
+    padding: 1rem;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(255, 228, 196, 0.695);
+    gap: 1rem;
+}
+.chatDisplay{
+    flex-grow: 10;
+    display: flex;
+    flex-direction: column;
+    
+}

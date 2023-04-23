@@ -11,6 +11,7 @@ type Room struct {
 	Messages []Message `json:"messages"`
 	RoomId   int       `json:"Id"`
 	conn     []*websocket.Conn
+	RoomName string `json:"RoomName"`
 }
 
 var upgrader = websocket.Upgrader{
@@ -22,8 +23,10 @@ func (R *Room) GetMessages() []Message {
 	return R.Messages
 
 }
-func (R *Room) AddMessage(msg string) []Message {
-	R.Messages = append(R.Messages, Message{Msg: msg, Id: len(R.Messages), From: "system"})
+func (R *Room) AddMessage(msg string, usr string) []Message {
+	msgF := Message{Msg: msg, Id: len(R.Messages), From: usr}
+	R.Messages = append(R.Messages, msgF)
+	go R.ReceiveMessage(msgF)
 
 	return R.Messages
 
@@ -32,21 +35,33 @@ func (R *Room) AddMessage(msg string) []Message {
 func (R *Room) AddConnection(w http.ResponseWriter, r *http.Request) error {
 	upgrader.CheckOrigin = func(r *http.Request) bool { return true }
 	ws, err := upgrader.Upgrade(w, r, nil)
+	var u User
+	err2 := ws.ReadJSON(&u)
+
+	R.conn = append(R.conn, ws)
+	if err2 != nil {
+		fmt.Println("ERROR   ", err2)
+	}
+	fmt.Println(u)
 	if err != nil {
 		fmt.Println("Error upgrading connection")
 		fmt.Println(err)
 
 		return err
 	}
-	R.conn = append(R.conn, ws)
-	go R.ReadMessage(ws)
+	R.AddMessage(fmt.Sprintf("New user connected %s", u.Username), u.Username)
+	go R.ReadMessage(ws, u)
 	return nil
 }
 
 func (R *Room) ReceiveMessage(msg Message) {
 	closedConnection := []int{}
+	// R.Messages = append(R.Messages, msg)
+	fmt.Println(len(R.conn))
+
 	for i, conn := range R.conn {
 		err := conn.WriteJSON(msg)
+
 		if err != nil {
 			closedConnection = append(closedConnection, i)
 			fmt.Println("error messaging", err)
@@ -58,21 +73,17 @@ func (R *Room) ReceiveMessage(msg Message) {
 	}
 
 }
-func (R *Room) BroadCastMessage(msg Message) {
-	fmt.Println("SENDING MSG")
-	R.ReceiveMessage(msg)
 
-}
-func (R *Room) ReadMessage(ws *websocket.Conn) {
-
+func (R *Room) ReadMessage(ws *websocket.Conn, u User) {
 	for {
 		var message Message
 		err := ws.ReadJSON(&message)
+		message.From = u.Username
 		if err != nil {
 			fmt.Println(err)
 
 			return
 		}
-		R.ReceiveMessage(message)
+		R.AddMessage(message.Msg, u.Username)
 	}
 }

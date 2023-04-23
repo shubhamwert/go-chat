@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/rooms.css">
+    <link rel="stylesheet" href="../css/embeddedChat.css">
+    <script src="../scripts/chat.js"></script>
+    <script src="../scripts/rooms.js"></script>
+
+
+    <title>Rooms</title>
+</head>
+
+<body>
+    <div class="chatApp">
+        <div class="Rooms">
+            <div id="rooms">
+
+                <div class="room" onclick="loadChat(0)">
+                        Example2
+
+                </div>
+
+            </div>
+        </div>
+        <div class="chatDisplay">
+            <div class="user">
+                username
+                <input id="username" type="text"></input>
+                password
+                <input id="password" type="password"></input>
+                <button onclick="initializeConnection()">connect</button>
+            </div>
+
+            <div class="chatWindow">
+                <div id="messagesArea">
+
+
+                </div>
+                <div class="sendMessage">
+                    <input type="text" id="messageSend">
+                    <button class="sendMessageButton" onclick="sendMessage()">Send</button>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>
