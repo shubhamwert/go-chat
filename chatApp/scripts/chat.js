@@ -6,6 +6,7 @@ var universal =
 
 let socket=null
 function initializeConnection() {
+    resetChatWindow()
     if (socket != null) {
         socket.close()
 
