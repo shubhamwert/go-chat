@@ -14,11 +14,13 @@ var Rooms map[int]*chatApp.Room
 // var RoomsList map[*chatApp.User]*chatApp.Room
 
 func main() {
+	chatApp.CreateConnection("config.yaml")
+	defer chatApp.CloseConnection()
 	Rooms = make(map[int]*chatApp.Room)
 	Rooms[0] = &chatApp.Room{RoomId: 0, Messages: []chatApp.Message{}, RoomName: "Genysis"}
 
-	Rooms[1] = &chatApp.Room{RoomId: 0, Messages: []chatApp.Message{}, RoomName: "Genysis2"}
-	Rooms[2] = &chatApp.Room{RoomId: 0, Messages: []chatApp.Message{}, RoomName: "Genysis3"}
+	Rooms[1] = &chatApp.Room{RoomId: 1, Messages: []chatApp.Message{}, RoomName: "Genysis2"}
+	Rooms[2] = &chatApp.Room{RoomId: 2, Messages: []chatApp.Message{}, RoomName: "Genysis3"}
 	fmt.Println("Starting")
 
 	router := gin.Default()

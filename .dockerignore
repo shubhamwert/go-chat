@@ -2,3 +2,7 @@ chatApp
 chatApp/
 chatApp/*
 .*
+Dockerfile
+*.md
+*.sql
+docker-compose.yaml

@@ -2,6 +2,7 @@ package chatApp
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/gorilla/websocket"
@@ -25,7 +26,10 @@ func (R *Room) GetMessages() []Message {
 }
 func (R *Room) AddMessage(msg string, usr string) []Message {
 	msgF := Message{Msg: msg, Id: len(R.Messages), From: usr}
-	R.Messages = append(R.Messages, msgF)
+	fmt.Println("Inserting")
+
+	R.AddMessageDB([]Message{msgF})
+	fmt.Println("Insert complete")
 	go R.ReceiveMessage([]Message{msgF})
 
 	return R.Messages
@@ -79,7 +83,16 @@ func (R *Room) ReadMessage(ws *websocket.Conn, u User) {
 	for {
 		var message Message
 		err := ws.ReadJSON(&message)
+		if err != nil {
+			log.Default().Println("Connection REad Error", err)
+			ws.Close()
+			return
+		}
+		if len(message.Msg) <= 1 {
+			continue
+		}
 		message.From = u.Username
+
 		if err != nil {
 			fmt.Println(err)
 
@@ -89,8 +102,18 @@ func (R *Room) ReadMessage(ws *websocket.Conn, u User) {
 	}
 }
 func (R *Room) LoadMessages(ws *websocket.Conn, u string) error {
-	// R.ReceiveMessage(R.Messages)
-	err := ws.WriteJSON(R.Messages)
+	var err error
+	fmt.Println("ROom id is ", R.RoomId)
+	R.Messages, err = GetMessage(R.RoomId, "message")
+	fmt.Println("Loaded message")
+	if err != nil {
+		return err
+	}
+	err = ws.WriteJSON(R.Messages)
 
 	return err
+}
+func (R *Room) AddMessageDB(msg []Message) {
+	log.Default().Println("Adding message to db")
+	InsertMessage(msg, R.RoomId, "message")
 }
