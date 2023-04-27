@@ -1,102 +1,126 @@
-
-
-
 .chatWindow {
-    padding: 1rem;
-    border: rgba(0, 0, 0, 0.294) solid 0.02rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.1rem;
-    height: 70%;
+  padding: 1rem;
+  border: rgba(0, 0, 0, 0.294) solid 0.02rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  height: 70%;
 }
 
 #messagesArea {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    justify-content: right;
-    overflow: scroll;
-    overflow-x: hidden; 
-    overflow-y: scroll; 
-    padding: 1rem;
-    height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: right;
+  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 1rem;
+  height: 100%;
 }
 
 .sendMessage {
-    display: flex;
-    gap: 0.5rem;
-    flex-direction: row;
-    justify-content: right;
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: row;
+  justify-content: right;
 }
 
 .sendMessageButton {
-    align-self: flex-end;
-    height: fit-content;
-    gap: 2rem;
-    padding: 0.5rem;
-    align-self: flex-end;
-    width: fit-content;
-    flex-shrink: 1;
+  align-self: flex-end;
+  height: fit-content;
+  gap: 2rem;
+  padding: 0.5rem;
+  align-self: flex-end;
+  width: fit-content;
+  flex-shrink: 1;
 
 }
 
 .message {
-    align-self: flex-end;
-    padding: 0.5rem;
-    background: #FDC830;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #F37335, #FDC830);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #F37335, #FDC830); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  align-self: flex-end;
+  padding: 0.5rem;
+  background: #FDC830;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #F37335, #FDC830);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #F37335, #FDC830);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
-    border-radius: 10%;
-    box-shadow: 0 0px 25px rgba(0, 0, 0, .2);
-    display: flex;
-    gap: 0.4rem;
-    flex-direction: column;
-    width: fit-content;
+  border-radius: 10%;
+  box-shadow: 0 0px 25px rgba(0, 0, 0, .2);
+  display: flex;
+  gap: 0.4rem;
+  flex-direction: column;
+  width: fit-content;
 }
 
+.messageSelf {
+  align-self: flex-start;
+  padding: 0.5rem;
+  background: rgb(92,151,250);
+  background: linear-gradient(90deg, rgba(92,151,250,1) 22%, rgba(0,224,255,0.8155462868741247) 87%); 
+  border-radius: 10%;
+  box-shadow: 0 0px 25px rgba(0, 0, 0, .2);
+  display: flex;
+  gap: 0.4rem;
+  flex-direction: column;
+  width: fit-content;
+}
 
 .message .from {
-    border-bottom: 0.1rem rgba(0, 0, 0, 0.244) solid;
-    color: rgba(0, 0, 0, 0.464);
-    font-weight: 350;
+  border-bottom: 0.1rem rgba(0, 0, 0, 0.244) solid;
+  color: rgba(0, 0, 0, 0.464);
+  font-weight: 350;
 }
 
 .message .from::before {
-    content: "@ ";
-    margin-left: auto; 
+  content: "@ ";
+  margin-left: auto;
 
 }
+.messageSelf .from {
+  border-bottom: 0.1rem rgba(0, 0, 0, 0.244) solid;
+  color: rgba(0, 0, 0, 0.464);
+  font-weight: 350;
+}
 
+.messageSelf .from::before {
+  content: "@ ";
+  margin-left: auto;
+
+}
 ::-webkit-scrollbar {
-    width: 2px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px rgb(187, 137, 137); 
-    border-radius: 10px;
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: rgb(0, 0, 0); 
-    border-radius: 30%;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #000000; 
-  }
-  .user{
-    align-self: center;
-    justify-content: center;
-    display: flex;
-    gap:0.5rem;
-    flex-direction: column;
-    width: fit-content;
-  }
-  #username{
-    align-self: center;
-  }
+  width: 2px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgb(187, 137, 137);
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(0, 0, 0);
+  border-radius: 30%;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #000000;
+}
+
+.user {
+  align-self: center;
+  justify-content: center;
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column;
+  width: fit-content;
+}
+
+#username {
+  align-self: center;
+}

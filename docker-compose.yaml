@@ -1,22 +1,22 @@
 
 version: "3.9"
 services:
-  web:
-    build: .
-    # command: sh "apk update && sleep 100"
-    ports:
-      - "8080:8080"
-    depends_on:
-      - postgres
-        # condition: service_healthy
-  # redis:
-  #   image: "redis:alpine"
+  # web:
+  #   build: .
+  #   # command: sh "apk update && sleep 100"
+  #   ports:
+  #     - "8080:8080"
+  #   depends_on:
+  #     - postgres
+  #       # condition: service_healthy
+  # # redis:
+  # #   image: "redis:alpine"
   postgres:
     image: postgres:15-alpine
     environment:
       POSTGRES_PASSWORD: mypasswd
 
-    # ports:
-    #   - 5432
+    ports:
+      - 5432:5432
     
 
